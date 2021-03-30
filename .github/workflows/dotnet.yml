@@ -21,10 +21,8 @@ jobs:
     - name: Build
       run:  dotnet build --no-restore
     - name: Test
-      run:  dotnet test --no-build --logger trx --results-directory "TestResults-${{ github.sha }}"
-    - name: Upload Test results
+      run:  dotnet test --no-build
+    - name: Upload library binary
       uses: actions/upload-artifact@v2
-      with:
-        name: dotnet-test-results-${{ github.sha }}
-        path: TestResults-${{ github.sha }}
-      if: ${{ always() }}
+        name: Geometry-${{ github.sha::6 }}.dll
+      if: success()
