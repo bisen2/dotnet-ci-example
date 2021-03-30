@@ -7,19 +7,26 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
 
+  test:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Install dependencies
+      run:  dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run:  dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run:  dotnet test --no-build --logger trx --results-directory "TestResults-${{ github.sha }}"
+    - name: Upload Test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-test-results-${{ github.sha }}
+        path: TestResults-${{ github.sha }}
+      if: ${{ always() }}
