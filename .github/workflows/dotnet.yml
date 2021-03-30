@@ -25,6 +25,6 @@ jobs:
     - name: Upload library binary
       uses: actions/upload-artifact@v2
       with:
-        name: Geometry-${{ github.sha }}.dll
+        name: Geometry.dll
         path: ./Geometry/bin/Release/net5.0/Geometry.dll
       if: success()
