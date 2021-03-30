@@ -26,5 +26,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Geometry-${{ github.sha }}.dll
-        path: ./Geometry/bin/Release/Geometry.dll
+        path: ./Geometry/bin/Release/net5.0/Geometry.dll
       if: success()
