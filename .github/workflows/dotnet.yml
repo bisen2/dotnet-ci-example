@@ -24,6 +24,6 @@ jobs:
       run:  dotnet test --no-build
     - name: Upload library binary
       uses: actions/upload-artifact@v2
-        name: Geometry-${{ github.sha }}.dll
+        name: Geometry.dll
         path: Geometry/bin/Release/Geometry.dll
       if: success()
