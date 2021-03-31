@@ -35,4 +35,11 @@ namespace Geometry {
         public double Area => 3 * Math.Sqrt(3) * SideLength * SideLength / 2;
         public double Circumference => 6 * SideLength;
     }
+
+    public class RegularOctagon : IShape {
+        public RegularOctagon(double sideLength) => SideLength = sideLength;
+        public double SideLength { get; }
+        public double Area => 2 * SideLength * SideLength * (1 + Math.Sqrt(2));
+        public double Circumference => 8 * SideLength;
+    }
 }
