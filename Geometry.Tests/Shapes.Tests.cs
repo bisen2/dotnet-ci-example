@@ -4,60 +4,37 @@ using Xunit;
 namespace Geometry.Tests {
 
     public class Circle_Tests {
+        private double radius = 42;
+        private Circle SUT;
+        public Circle_Tests() => SUT = new Circle(radius);
 
         [Fact]
-        public void Ctor_SetsRadius() {
-            double radius = 42;
-            var SUT = new Circle(radius);
-            Assert.Equal(radius, SUT.Radius);
-        }
+        public void Ctor_SetsRadius() => Assert.Equal(radius, SUT.Radius);
 
         [Fact]
-        public void Ctor_SetsArea() {
-            double radius = 42;
-            var SUT = new Circle(radius);
-            Assert.Equal(Math.PI*radius*radius, SUT.Area);
-        }
+        public void Ctor_SetsArea() => Assert.Equal(Math.PI * radius * radius, SUT.Area);
 
         [Fact]
-        public void Ctor_SetsCircumference() {
-            double radius = 42;
-            var SUT = new Circle(42);
-            Assert.Equal(2*Math.PI*radius, SUT.Circumference);
-        }
+        public void Ctor_SetsCircumference() => Assert.Equal(2 * Math.PI * radius, SUT.Circumference);
     }
 
     public class Rectangle_Tests {
+        private double length = 27;
+        private double width = 42;
+        private Rectangle SUT;
+        public Rectangle_Tests() => SUT = new Rectangle(length, width);
 
         [Fact]
-        public void Ctor_SetsLength() {
-            double length = 27;
-            var SUT = new Rectangle(length, 0);
-            Assert.Equal(length, SUT.Length);
-        }
+        public void Ctor_SetsLength() => Assert.Equal(length, SUT.Length);
 
         [Fact]
-        public void Ctor_SetsWidth() {
-            double width = 42;
-            var SUT = new Rectangle(0, width);
-            Assert.Equal(width, SUT.Width);
-        }
+        public void Ctor_SetsWidth() => Assert.Equal(width, SUT.Width);
 
         [Fact]
-        public void Ctor_SetsArea() {
-            double length = 27;
-            double width = 42;
-            var SUT = new Rectangle(length, width);
-            Assert.Equal(length * width, SUT.Area);
-        }
+        public void Ctor_SetsArea() => Assert.Equal(length * width, SUT.Area);
 
         [Fact]
-        public void Ctor_SetsCircumference() {
-            double length = 27;
-            double width = 42;
-            var SUT = new Rectangle(length, width);
-            Assert.Equal((2*length)+(2*width), SUT.Circumference);
-        }
+        public void Ctor_SetsCircumference() => Assert.Equal((2 * length) + (2 * width), SUT.Circumference);
     }
 
     public class Square_Tests {
@@ -71,28 +48,21 @@ namespace Geometry.Tests {
     }
 
     public class Hexagon_Tests {
+        private double sideLength = 42;
+        private RegularHexagon SUT;
+        public Hexagon_Tests() => SUT = new RegularHexagon(sideLength);
 
         [Fact]
-        public void Ctor_SetsSideLength() {
-            double length = 42;
-            var SUT = new RegularHexagon(length);
-            Assert.Equal(length, SUT.SideLength);
-        }
+        public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
 
         [Fact]
         public void Ctor_SetsArea() {
-            double length = 42;
-            var SUT = new RegularHexagon(length);
-            double expected = 3 * Math.Sqrt(3) * length * length / 2;
-            Assert.Equal(expected, SUT.Area);
+            double area = 3 * Math.Sqrt(3) * sideLength * sideLength / 2;
+            Assert.Equal(area, SUT.Area);
         }
 
         [Fact]
-        public void Ctor_SetsCircumference() {
-            double length = 42;
-            var SUT = new RegularHexagon(length);
-            Assert.Equal(6 * length, SUT.Circumference);
-        }
+        public void Ctor_SetsCircumference() => Assert.Equal(6 * sideLength, SUT.Circumference);
     }
 
     public class Octagon_Tests {
