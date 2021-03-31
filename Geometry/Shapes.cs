@@ -37,9 +37,9 @@ namespace Geometry {
     }
 
     public class RegularOctagon : IShape {
-        public RegularOctagon(double sideLength) => throw new NotImplementedException();
+        public RegularOctagon(double sideLength) => SideLength = sideLength;
         public double SideLength { get; }
-        public double Area => throw new NotImplementedException();
-        public double Circumference => throw new NotImplementedException();
+        public double Area => 2 * SideLength * SideLength * (1 + Math.Sqrt(2));
+        public double Circumference => 8 * SideLength;
     }
 }
