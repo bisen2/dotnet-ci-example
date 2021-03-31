@@ -71,6 +71,7 @@ namespace Geometry.Tests {
     }
 
     public class Hexagon_Tests {
+
         [Fact]
         public void Ctor_SetsSideLength() {
             double length = 42;
@@ -92,5 +93,23 @@ namespace Geometry.Tests {
             var SUT = new RegularHexagon(length);
             Assert.Equal(6 * length, SUT.Circumference);
         }
+    }
+
+    public class Octagon_Tests {
+        private double sideLength = 42;
+        private RegularOctagon SUT;
+        public Octagon_Tests() => SUT = new RegularOctagon(sideLength);
+
+        [Fact]
+        public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
+
+        [Fact]
+        public void Ctor_SetsArea() {
+            double area = 2 * sideLength * sideLength * (1 + Math.Sqrt(2));
+            Assert.Equal(area, SUT.Area);
+        }
+
+        [Fact]
+        public void Ctor_SetsCircumference() => Assert.Equal(sideLength * 8, SUT.Circumference);
     }
 }
