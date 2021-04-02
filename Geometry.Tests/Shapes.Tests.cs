@@ -38,13 +38,21 @@ namespace Geometry.Tests {
     }
 
     public class Square_Tests {
+        private double sideLength = 42;
+        private Square SUT;
+        public Square_Tests() => SUT = new Square(sideLength);
+
         [Fact]
-        public void Ctor_SetsLengthAndWidth() {
-            double length = 27;
-            var SUT = new Square(length);
-            Assert.Equal(length, SUT.Length);
-            Assert.Equal(length, SUT.Width);
-        }
+        public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
+
+        [Fact]
+        public void Ctor_SetsNumSides() => Assert.Equal(4, SUT.NumSides);
+
+        [Fact]
+        public void Ctor_SetsArea() => Assert.Equal(sideLength * sideLength, SUT.Area);
+
+        [Fact]
+        public void Ctor_SetsCircumference() => Assert.Equal(4 * sideLength, SUT.Circumference);
     }
 
     public class Hexagon_Tests {
