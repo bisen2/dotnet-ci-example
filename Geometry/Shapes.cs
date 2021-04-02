@@ -14,6 +14,17 @@ namespace Geometry {
         public double Circumference => 2 * Math.PI * Radius;
     }
 
+    public class RegularPolygon : IShape {
+        public RegularPolygon(int numSides, double sideLength) {
+            NumSides = numSides;
+            SideLength = sideLength;
+        }
+        public int NumSides { get; }
+        public double SideLength { get; }
+        public double Area => NumSides * SideLength * SideLength / Math.Tan(Math.PI / NumSides) / 4;
+        public double Circumference => NumSides * SideLength;
+    }
+
     public class Rectangle : IShape {
         public Rectangle(double length, double width) {
             Length = length;
@@ -25,21 +36,15 @@ namespace Geometry {
         public double Circumference => 2 * Length + 2 * Width;
     }
 
-    public class Square : Rectangle {
-        public Square(double length) : base(length, length) {}
+    public class Square : RegularPolygon {
+        public Square(double sideLength) : base(4, sideLength) {}
     }
 
-    public class RegularHexagon : IShape {
-        public RegularHexagon(double sideLength) => SideLength = sideLength;
-        public double SideLength { get; }
-        public double Area => 3 * Math.Sqrt(3) * SideLength * SideLength / 2;
-        public double Circumference => 6 * SideLength;
+    public class RegularHexagon : RegularPolygon {
+        public RegularHexagon(double sideLength) : base(6, sideLength) {}
     }
 
-    public class RegularOctagon : IShape {
-        public RegularOctagon(double sideLength) => SideLength = sideLength;
-        public double SideLength { get; }
-        public double Area => 2 * SideLength * SideLength * (1 + Math.Sqrt(2));
-        public double Circumference => 8 * SideLength;
+    public class RegularOctagon : RegularPolygon {
+        public RegularOctagon(double sideLength) : base(8, sideLength) {}
     }
 }

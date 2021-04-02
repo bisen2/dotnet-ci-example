@@ -3,6 +3,11 @@ using Xunit;
 
 namespace Geometry.Tests {
 
+    public static class CustomAssert {
+        public static void PlusOrMinus(double expected, double actual, double range) =>
+            Assert.InRange(actual, expected - range, expected + range);
+    }
+
     public class Circle_Tests {
         private double radius = 42;
         private Circle SUT;
@@ -38,13 +43,21 @@ namespace Geometry.Tests {
     }
 
     public class Square_Tests {
+        private double sideLength = 42;
+        private Square SUT;
+        public Square_Tests() => SUT = new Square(sideLength);
+
         [Fact]
-        public void Ctor_SetsLengthAndWidth() {
-            double length = 27;
-            var SUT = new Square(length);
-            Assert.Equal(length, SUT.Length);
-            Assert.Equal(length, SUT.Width);
-        }
+        public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
+
+        [Fact]
+        public void Ctor_SetsNumSides() => Assert.Equal(4, SUT.NumSides);
+
+        [Fact]
+        public void Ctor_SetsArea() => CustomAssert.PlusOrMinus(sideLength * sideLength, SUT.Area, 0.001);
+
+        [Fact]
+        public void Ctor_SetsCircumference() => CustomAssert.PlusOrMinus(4 * sideLength, SUT.Circumference, 0.001);
     }
 
     public class Hexagon_Tests {
@@ -58,11 +71,11 @@ namespace Geometry.Tests {
         [Fact]
         public void Ctor_SetsArea() {
             double area = 3 * Math.Sqrt(3) * sideLength * sideLength / 2;
-            Assert.Equal(area, SUT.Area);
+            CustomAssert.PlusOrMinus(area, SUT.Area, 0.001);
         }
 
         [Fact]
-        public void Ctor_SetsCircumference() => Assert.Equal(6 * sideLength, SUT.Circumference);
+        public void Ctor_SetsCircumference() => CustomAssert.PlusOrMinus(6 * sideLength, SUT.Circumference, 0.001);
     }
 
     public class Octagon_Tests {
@@ -76,10 +89,10 @@ namespace Geometry.Tests {
         [Fact]
         public void Ctor_SetsArea() {
             double area = 2 * sideLength * sideLength * (1 + Math.Sqrt(2));
-            Assert.Equal(area, SUT.Area);
+            CustomAssert.PlusOrMinus(area, SUT.Area, 0.001);
         }
 
         [Fact]
-        public void Ctor_SetsCircumference() => Assert.Equal(sideLength * 8, SUT.Circumference);
+        public void Ctor_SetsCircumference() => CustomAssert.PlusOrMinus(sideLength * 8, SUT.Circumference, 0.001);
     }
 }
