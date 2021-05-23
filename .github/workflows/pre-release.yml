@@ -22,7 +22,7 @@ jobs:
     - name: Run tests
       run: dotnet test --configuration Release --no-build
     - name: Generate pre-release
-      uses: marvinpinto/action-automatic-release@1.2.0
+      uses: marvinpinto/action-automatic-release@v1.2.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         automatic_release_tag: latest
