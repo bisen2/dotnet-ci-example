@@ -1,0 +1,33 @@
+name: Pre-release
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  pre-release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1.8.0
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build projects
+      run: dotnet build --configuration Release --no-restore
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build
+    - name: Generate pre-release
+      uses: marvinpinto/action-automatic-release@1.2.0
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        automatic_release_tag: latest
+        prerelease: true
+        title: Development Build
+        files:
+          Geometry/bin/Release/net5.0/Geometry.dll
+          
