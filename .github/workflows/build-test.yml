@@ -1,0 +1,63 @@
+name: Build and Test
+on:
+  push:
+  pull_request:
+
+jobs:
+
+  Format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1.8.0
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dotnet-format
+      run: dotnet tool install --global dotnet-format --version 5.1.*
+    - name: Run dotnet-format
+      run: dotnet-format ./dotnet-ci-example.sln
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v4.11.0
+      with:
+        commit_message: Automated formatting
+
+  Build:
+    needs: Format
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1.8.0
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build projects
+      run: dotnet build --configuration Release --no-restore
+    - name: Upload test artifacts
+      uses: actions/upload-artifact@v2.2.3
+      with:
+        name: test_artifacts
+        path: Geometry.Tests/bin/Release/net5.0
+
+  Test:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.4
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1.8.0
+      with:
+        dotnet-version: 5.0.x
+    - name: Download test artifacts
+      uses: actions/download-artifact@v2.0.9
+      with:
+        name: test_artifacts
+        path: test_artifacts
+    - name: Run tests
+      working-directory: ./test_artifacts
+      run: dotnet test Geometry.Tests.dll
