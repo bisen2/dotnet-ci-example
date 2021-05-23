@@ -21,7 +21,7 @@ jobs:
     - name: Install dotnet-format
       run: dotnet tool install --global dotnet-format --version 5.1.*
     - name: Run dotnet-format
-      run: dotnet-format ./dotnet-ci-example.sln
+      run: dotnet-format dotnet-ci-example.sln
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v4.11.0
       with:
@@ -41,4 +41,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: dotnet test --configuration Release --no-build
-    
