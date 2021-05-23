@@ -1,14 +1,17 @@
 using System;
 using Xunit;
 
-namespace Geometry.Tests {
+namespace Geometry.Tests
+{
 
-    public static class CustomAssert {
+    public static class CustomAssert
+    {
         public static void PlusOrMinus(double expected, double actual, double range) =>
             Assert.InRange(actual, expected - range, expected + range);
     }
 
-    public class Circle_Tests {
+    public class Circle_Tests
+    {
         private double radius = 42;
         private Circle SUT;
         public Circle_Tests() => SUT = new Circle(radius);
@@ -23,7 +26,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsCircumference() => Assert.Equal(2 * Math.PI * radius, SUT.Circumference);
     }
 
-    public class Rectangle_Tests {
+    public class Rectangle_Tests
+    {
         private double length = 27;
         private double width = 42;
         private Rectangle SUT;
@@ -42,7 +46,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsCircumference() => Assert.Equal((2 * length) + (2 * width), SUT.Circumference);
     }
 
-    public class Square_Tests {
+    public class Square_Tests
+    {
         private double sideLength = 42;
         private Square SUT;
         public Square_Tests() => SUT = new Square(sideLength);
@@ -60,7 +65,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsCircumference() => CustomAssert.PlusOrMinus(4 * sideLength, SUT.Circumference, 0.001);
     }
 
-    public class Hexagon_Tests {
+    public class Hexagon_Tests
+    {
         private double sideLength = 42;
         private RegularHexagon SUT;
         public Hexagon_Tests() => SUT = new RegularHexagon(sideLength);
@@ -69,7 +75,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
 
         [Fact]
-        public void Ctor_SetsArea() {
+        public void Ctor_SetsArea()
+        {
             double area = 3 * Math.Sqrt(3) * sideLength * sideLength / 2;
             CustomAssert.PlusOrMinus(area, SUT.Area, 0.001);
         }
@@ -78,7 +85,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsCircumference() => CustomAssert.PlusOrMinus(6 * sideLength, SUT.Circumference, 0.001);
     }
 
-    public class Octagon_Tests {
+    public class Octagon_Tests
+    {
         private double sideLength = 42;
         private RegularOctagon SUT;
         public Octagon_Tests() => SUT = new RegularOctagon(sideLength);
@@ -87,7 +95,8 @@ namespace Geometry.Tests {
         public void Ctor_SetsSideLength() => Assert.Equal(sideLength, SUT.SideLength);
 
         [Fact]
-        public void Ctor_SetsArea() {
+        public void Ctor_SetsArea()
+        {
             double area = 2 * sideLength * sideLength * (1 + Math.Sqrt(2));
             CustomAssert.PlusOrMinus(area, SUT.Area, 0.001);
         }
